@@ -159,3 +159,18 @@ If you close the shell all variables will be lost.
     mkdir shell_test                - command to create directory shell_test
     mkdir -p new_folder/new_file    - create new folder in another folder using -p or --parent argument
     ```
+- Writing to a file:
+    ```
+    echo hello world > file1        - writing to a file, it will overwrite the content 
+    cat file1                       - it will display content from the file 
+    ```
+- Renaming files and directories:
+    ```
+    touch file1 file2           - create 2 files
+    echo hello > file10         - create one file by writing 'hello' in it
+    mv -i file2 file10          - replace content of one file with another and using -1 prompt to be asked if I want to overwrite the content 
+    ```
+    ```
+    mkdir shell_test                    - create a directory
+    mv file1 file2 file3 shell_test     - move 3 files into one directory, the last argument is always a directory
+    ```
