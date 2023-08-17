@@ -164,13 +164,65 @@ If you close the shell all variables will be lost.
     echo hello world > file1        - writing to a file, it will overwrite the content 
     cat file1                       - it will display content from the file 
     ```
-- Renaming files and directories:
+- Renaming and moving files and directories:
     ```
     touch file1 file2           - create 2 files
     echo hello > file10         - create one file by writing 'hello' in it
-    mv -i file2 file10          - replace content of one file with another and using -1 prompt to be asked if I want to overwrite the content 
+    mv -i file2 file10          - replace content of one file with another and using -i prompt to be asked if I want to overwrite the content 
     ```
     ```
     mkdir shell_test                    - create a directory
     mv file1 file2 file3 shell_test     - move 3 files into one directory, the last argument is always a directory
+    ```
+- Copying files and directories:
+    ```
+    cp test_folder/file1 prod_folder/file1  - copy file from one dir to another
+    cp -r folder1 folder2                   - copy recursively folder and its content in another folder, and if the second folder doesn't exist it will create one
+    ```
+- Globing pattern matching:
+    
+    *Matches any number of any character, including no characters
+    ? Matches any one character
+    [ ]Matches a class of characters
+
+    ```
+    $ ls
+    file1 file2 file99 games10 games1001 games10001
+    $ ls file*
+    file1 file12 file99
+    $ ls file1*
+    file12
+    $ ls games100*
+    games1001  
+    $ ls file?
+    file1 file2
+    $ ls file[1-2]
+    file1 file2
+    ```
+    [:alnum:]
+    Letters and numbers.
+    [:alpha:]
+    Upper or lowercase letters.
+    [:blank:]
+    Spaces and tabs.
+    [:cntrl:]
+    Control characters, e.g. backspace, bell, NAK, escape.
+    [:digit:]
+    Numerals (0123456789).
+    [:graph:]
+    Graphic characters (all characters except ctrl and the space character)
+    [:lower:]
+    Lowercase letters (a-z).
+    [:print:]
+    Printable characters (alnum, punct, and the space character).
+    [:punct:]
+    Punctuation characters, i.e. !, &, ".
+    [:space:]
+    Whitespace characters, e.g. tabs, spaces, newlines.
+
+- Additional:
+    ```
+    rm -v file1 file2                   - verbose mode
+    rmdir -p Side_projects/shell_test   - remove recursively using -p param
+    mv -n file1 file2                   - 
     ```

@@ -3,6 +3,7 @@
 - Open GUI folder or file on indicated path:
     ```
     nautilus /home/iontelescu/Desktop/Linux
+    xdg-open <filename>
     ```
 - In order to display the file structure of current file, use:
     ```
@@ -10,3 +11,4 @@
     find        - display all file of current directory
     ls -t -r    - will display the files/directories in reversed order by creation
     ```
+    
