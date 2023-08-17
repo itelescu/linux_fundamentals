@@ -224,5 +224,45 @@ If you close the shell all variables will be lost.
     ```
     rm -v file1 file2                   - verbose mode
     rmdir -p Side_projects/shell_test   - remove recursively using -p param
-    mv -n file1 file2                   - 
+    mv -n file1 file2                   - file1 will prevent overwriting content of file1 to file2
+    ```
+
+## Archiving files
+
+- There are 2 type of compressions: **lossless** and **lossy**, each having on its base different algorithms, in first case your files on the decompression will be restored back in original form, while in the second case decompression will have different output from the original one (ex. Video, audio decompressed files will have different quality than original).
+- Archiving bundle together different files into one. The most common tool to compress files in Linux system is **tar** which will not compress the file by default.
+- The most used compression tools on Linux are **bzip2**, **gzip**, **xz** all 3 use the same algorithm for compression so you can decompress one by another.
+    ```
+    bzip2 file_name     - the compression size will be different for each zipped file                
+    gzip file_name      - using gzip -1 or gzip -9 will have different level of compression
+    xz file_name
+
+    bunzip2 file_name
+    gunzip file_name
+    unxz file_name
+    ```
+- Archiving can be performed by using following commands:
+    ``` 
+    tar -cf <path/archived_folder_name.tar> <required_compress_folder>      - c means new file to be archived and f is the name of the file
+    tar -tf <archived_folder_name.tar>                                      - this command will display all the files in the archived file
+    tar xf <archived_folder_name.tar>                                       - unarchive file
+    tar xvf <archived_folder_name.tar>  <path/file_name>                    - this command will unarchive the specific file only
+    ```
+- Create compressed archived tar files can be done by following commands:
+    j -> bzip2
+    J -> xz
+    z -> gzip
+    ```
+    tar -czf compressed_file_name.tar.gz <file_name_to_compress>
+    tar -cjf compressed_file_name.tar.bz2 <file_name_to_compress>
+    tar -cJf compressed_file_name.tar.xz <file_name_to_compress>
+
+    tar -czf compressed_file_name.tgz <file_name_to_compress>   - tgz extension instead of double extension
+
+    ```
+
+- It is possible to add files to already existing uncompressed tar archives. Use the u option to do this.If you attempt to add to a compressed archive, you will get an error.
+    ```
+    tar cf file_name.tar <filename1> <filename2>    - archive 2 files 
+    tar uf file_name.tar <filename3>                - updated previous archived file with one more file, it works only for uncompressed archived files
     ```
