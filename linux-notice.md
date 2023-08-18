@@ -127,7 +127,7 @@ If you close the shell all variables will be lost.
 
 - There are 3 major commands for getting help and additional information about linux commands.
     ```
-    --help          - will display general information 
+    help          - will display general information 
     man mkdir       - manual page information in details for each command or package
     info mkdir      - information page in details about commands or packages
     ```
@@ -245,7 +245,7 @@ If you close the shell all variables will be lost.
     ``` 
     tar -cf <path/archived_folder_name.tar> <required_compress_folder>      - c means new file to be archived and f is the name of the file
     tar -tf <archived_folder_name.tar>                                      - this command will display all the files in the archived file
-    tar xf <archived_folder_name.tar>                                       - unarchive file
+    tar xf <archived_folder_name.tar>                                       - unarchive file in current working directory
     tar xvf <archived_folder_name.tar>  <path/file_name>                    - this command will unarchive the specific file only
     ```
 - Create compressed archived tar files can be done by following commands:
@@ -265,4 +265,42 @@ If you close the shell all variables will be lost.
     ```
     tar cf file_name.tar <filename1> <filename2>    - archive 2 files 
     tar uf file_name.tar <filename3>                - updated previous archived file with one more file, it works only for uncompressed archived files
+    ```
+
+## Writing, reading and searching from and to the files
+
+- There are 3 channels to redirect/transmit information from one source to another:
+    - **stdin** channel 0 - standard input
+    - **stdout** channel 1  - standard output
+    - **stderr** channel 2  - redirect the error
+
+    ```
+    echo "Hello World" > text_file      - write the input to the file, if it's exist if not it will create one, if it has content it will overwrite
+    echo "Hi All" >> text_file          - append input to the file
+
+    find /usr/blackhole 2> file_name    - write the error to the file_name
+    find /usr/blackhole 2>> file_name   - append the error to the file_name
+    find /usr/blackhole 2> dev/null     - write the error in the file that will erase it instantly 
+    
+    cat < text_file_name                - redirect the content of the file to the command, only the commands that don't require path argument
+    tr -d "lol" < text_file_name        - tr command will translate the file content and modify the characters in a specific way. In this example it will delete occurrence of all "lol" in the file_name
+    ```
+
+- To write some configuration or some documentation in a file, use:
+    ```
+    cat << delimiter                - write line by line until use delimiter and its stops
+    cat << delimiter > file_name    - you can write as much information as you want and once you finish write the word instead of delimiter and the file_name will be overwritten with your content
+    ```
+- Combination of channel1 and channel2 can be done by using & operator:
+    ```
+    find /etc black_hole_file &> file_name
+    find /bin/games &>> file_name
+    ```
+- Counting words in a file can be done by:
+    ```
+    wc -w <file_name>       - wc is word count command -w means that it will count words, not bytes or any other type of information
+    ```
+- Piping is an import part of scripting and command line tools:
+    ```
+    ls -R | head | wc -l    - this command will count first 10 line of the ls -R result (10 lines because of head command)
     ```
