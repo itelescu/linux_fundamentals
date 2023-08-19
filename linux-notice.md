@@ -304,3 +304,74 @@ If you close the shell all variables will be lost.
     ```
     ls -R | head | wc -l    - this command will count first 10 line of the ls -R result (10 lines because of head command)
     ```
+## Searching for a patterns in a file and manipulate text
+
+- Global regular expression patter or grep can display lines of text where the pattern matches and highlight the pattern in red:
+    ```
+    grep "bash" /etc/passwd                 - display lines where the pattern matches and highlight in red the pattern
+    grep -i "bash" /etc/passwd              - display lines with case insensitive 
+    grep -E "ba.+" /etc/passwd              - display extended pattern match
+    grep "[ab]" /etc/passwd                  
+    grep -c -E /etc/passwd                  - display count pattern matches
+    grep -E "bash|password" /etc/passwd     - using -E extended regex display either or another match
+    grep -r "^ba" /etc/passwd               - starting line with ba will be displayed
+    ```
+    *Zero or more of the preceding pattern
+    +One or more of the preceding pattern
+    ?Zero or one of the preceding pattern
+
+    -i  -case insensitive
+    -c  -count occurrence of pattern
+    -v  -invert the match of the patter
+    -r  -recursive search
+    -E  -extended regular expression
+
+
+## Commands into scripts
+
+- Using command in shell command line is one way of executing them, but when you have bigger scripts or commands to execute then it becomes harder to manage them and have them saved, so in this case scripts are coming into help. Like python scripts, we can have bash scripts and files usually have .sh or .bash extensions, also in the beginning of the script, to identify that this is bash script is a good practice to define interpreter using``` #!/bin/bash``` (called shebang).
+As you know, in order to execute a file shell is looking into ```$PATH``` variable if the executable is there. There are three solutions to this issue: we can move new_script into one of the PATH directories, we can add our current directory to PATH, or we can change the way we attempt to call the script.
+The latter solution is easiest, it simply requires us to specify the current location when calling the
+script using dot slash (./)
+
+```
+echo 'echo "Hello World!"'> script.sh       - writing script to a file
+    
+chmod +x script.sh                          - provide permission of execution
+
+./script.sh                                 - execute the script
+```
+
+- Variables in bash script are **implicit type** and are considered strings (in order to make them numbers we will need to explicit use **expr** command  or $((...)) expression). 
+Also they can be used in this format :
+```${variable_name}```
+- Don't negligee quotes as those are important in defining variables.
+    ```
+    #!bin/bash
+    username1="Ion Telescu"         - week quoting allow substitution  
+    username2='Ion Telescu'         - don't allow substitution in quoting
+    username3=Ion Telescu           - will treat it as a separate variable values Ion is first and Telescu is second, which might create unpredictable behavior
+    ```
+- Arguments allow user to pass them to the executable script:
+    ```
+    #!bin/bash
+    argument=$1
+    argument=$2
+    echo "first is $argument and second is $argument"
+
+    $./script username password
+    first is username and second is password  
+    ```
+- To return number of arguments use:
+    ```
+    #!bin/bash
+    argument=$1
+    argument=$2
+    echo "number of arguments: $# "
+
+    $./script number1 number2
+    number of arguments: 2 
+    ```
+
+
+
