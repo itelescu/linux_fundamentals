@@ -344,7 +344,9 @@ chmod +x script.sh                          - provide permission of execution
 
 - Variables in bash script are **implicit type** and are considered strings (in order to make them numbers we will need to explicit use **expr** command  or $((...)) expression). 
 Also they can be used in this format :
-```${variable_name}```
+```bash
+${variable_name}
+```
 - Don't negligee quotes as those are important in defining variables.
     ```
     #!bin/bash
@@ -373,7 +375,7 @@ Also they can be used in this format :
     number of arguments: 2 
     ```
 - Simple conditional flow in bash looks different than in other language. If statement has its stop sign which is fi:
-    ```
+    ```bash
     #!/bin/bash
 
     usr_number=$1
