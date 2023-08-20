@@ -365,13 +365,59 @@ Also they can be used in this format :
 - To return number of arguments use:
     ```
     #!bin/bash
-    argument=$1
-    argument=$2
-    echo "number of arguments: $# "
+    argument=$1                         - define argument number 1
+    argument=$2                         
+    echo "number of arguments: $# "     - return number of arguments
 
     $./script number1 number2
     number of arguments: 2 
     ```
+- Simple conditional flow in bash looks different than in other language. If statement has its stop sign which is fi:
+    ```
+    #!/bin/bash
 
+    usr_number=$1
 
+    if [ $usr_number -gt 10 ];then
+        echo "$usr_number is greater than 10"
+    elif [ $usr_number -eq 10 ];then
+        echo "$usr_number is 10"
+    else
+        echo "$usr_number is smaller than 10" 
+    fi
+        echo "script is stopping here"
+    ```
+    -eq -equal to
+    -ne -not equal
+    -gt -greater than
+    -ge -greater or equal to
+    -lt -lower than
+    -le -lower or equal to
 
+## Array, 'for' loops and other features of scripting in bash
+
+- Exit codes are something similar to error handling into python or other language, once exit code is hit it will terminate the script and exit.
+- In order to handle many arguments (or maybe user don't know the number of arguments that will be passed) there is way to handle this using built-in variable **$@**
+- This brings us to the definitions of the array in bash, concept which uses other languages as well.
+-In order to manage array and work with them, the concept of flow control and for look is a must to be introduced.
+
+    ```bash
+    #!/bin/bash
+
+    if [ $# -eq 0 ];then                            # check if the number of arguments introduced is bigger than 0
+        echo "Please enter at least one user."      
+        exit 1                                      # exit code will exit the script and it can be checked by using echo $? command
+    else
+        for username in $@                          # for looks will check the list of the arguments introduced $@ is a built in variable 
+        do
+            echo $username |grep "^[A-Za-z]*$" >/dev/null   # here is a regular expression that check if the result contain only letters and will redirect the output to null file to be suppressed 
+            if [ $@ -eq 1 ];then
+                echo "ERROR: Names must only contains letters."
+                exit 2
+            else
+                echo "Hello $username!"
+            fi
+        done
+        exit 0                                      # exit code in case if the command successfully passed
+    fi
+    ```
